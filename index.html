@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atividade Cronometro</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div class="relogio">
+      <h1>Cronometro</h1>
+      <div id="divCronometro"></div>
+
+      <input type="button" class="botao" id="iniciar" onclick=" trocar()"value="iniciar">
+      <input type="button"class="botao" id="zerar" onclick="zera()">Zerar</input>
+    </div>
+
+    <script type="application/javascript">
+      var elCronometro = document.getElementById("divCronometro");
+      var iniciar = document.getElementById("iniciar");
+      var zerar = document.getElementById("zerar");
+
+      var cent = 0;
+      var seg = 0;
+      var min = 0;
+
+      function cronometro() {
+        cent++;
+        if (cent >= 100) {
+          seg++;
+          cent = 0;
+        }
+
+        if (seg == 60) {
+          min++;
+          seg = 0;
+        }
+
+        if (min == 60) {
+          cent, seg, (min = 0);
+        }
+
+        var segundo = seg < 10 ? `0` + seg : seg;
+        var minuto = min < 10 ? `0` + min : min;
+
+        var cronometro = `${minuto}:${segundo}`;
+        elCronometro.innerHTML = cronometro;
+      }
+
+      function trocar() {
+        var controle = true;
+
+        if (iniciar.value == "iniciar") {
+          controle = false;
+          iniciar.value = "parar";
+          timer = setInterval(cronometro, 10);
+        } else {
+          controle = true;
+          iniciar.value = "iniciar";
+          clearInterval(timer);
+        }
+      }
+
+      function zera() {
+        seg = 0;
+        min = 0;
+
+        elCronometro.innerHTML = `00:00`;
+      }
+    </script>
+  </body>
+</html>
